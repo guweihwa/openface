@@ -102,6 +102,7 @@ class AlignDlib:
         assert rgbImg is not None
 
         try:
+            # http://dlib.net/train_shape_predictor.py.html
             return self.detector(rgbImg, 1)
         except Exception as e:
             print("Warning: {}".format(e))

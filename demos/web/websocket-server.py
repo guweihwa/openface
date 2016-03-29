@@ -194,7 +194,7 @@ class OpenFaceServerProtocol(WebSocketServerProtocol):
         else:
             (X, y) = d
 
-        X_pca = PCA(n_components=50).fit_transform(X, X)
+        X_pca = PCA(n_components=50).fit_transform(X)
         tsne = TSNE(n_components=2, init='random', random_state=0)
         X_r = tsne.fit_transform(X_pca)
 
@@ -303,7 +303,8 @@ class OpenFaceServerProtocol(WebSocketServerProtocol):
                     elif len(self.people) == 1:
                         identity = 0
                     elif self.svm:
-                        identity = self.svm.predict(rep)[0]
+                        ### identity = self.svm.predict(rep)[0]
+                        identity = self.svm.predict(rep.reshape(1,-1))[0]
                     else:
                         print("hhh")
                         identity = -1

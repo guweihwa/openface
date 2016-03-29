@@ -25,11 +25,12 @@ import random
 import cv2
 
 import openface
-from openface.alignment import NaiveDlib
+#from openface.alignment import NaiveDlib
 from openface.data import iterImgs
 
 fileDir = os.path.dirname(os.path.realpath(__file__))
-modelDir = os.path.join(fileDir, '..', 'models')
+# modelDir = os.path.join(fileDir, '..', 'models')
+modelDir = os.path.join(fileDir, '..', '..', 'models')
 dlibModelDir = os.path.join(modelDir, 'dlib')
 openfaceModelDir = os.path.join(modelDir, 'openface')
 
@@ -47,8 +48,11 @@ parser.add_argument('--imgDim', type=int, help="Default image size.",
                     default=96)
 args = parser.parse_args()
 
-align = NaiveDlib(args.dlibFacePredictor)
-net = openface.TorchWrap(args.model, imgDim=args.imgDim, cuda=False)
+#align = NaiveDlib(args.dlibFacePredictor)
+align = openface.AlignDlib(args.dlibFacePredictor)
+#net = openface.TorchWrap(args.model, imgDim=args.imgDim, cuda=False)
+net = openface.TorchNeuralNet(args.model, imgDim=args.imgDim, cuda=False)
+
 
 
 def getRep(imgPath):
